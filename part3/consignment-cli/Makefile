@@ -1,5 +1,6 @@
 build:
-	GOOS=linux GOARCH=amd64 go build
+	GOOS=linux GOARCH=amd64 go build -o consignment-cli
+	docker rmi consignment-cli-micro
 	docker build --no-cache -t consignment-cli-micro .
 
 run:

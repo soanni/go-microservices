@@ -4,18 +4,34 @@ services:
 
   consignment-cli:
     build: ./consignment-cli
+    image: consignment-cli-micro
+    depends_on:
+      - datastore
+      - vessel-service
+      - consignment-service
 
   consignment-service:
     build:  ./consignment-service
-    ports:
-      - 50051:50051
+    image: consignment-service-micro
     environment:
-      MICRO_ADDRESS: ":50051"
-      DB_HOST: "datastore:27017"
+      DB_HOST: "mongodb://datastore:27017"
+    depends_on:
+      - datastore
 
   vessel-service:
     build: ./vessel-service
-    ports:
-      - 50052:50051
+    image: vessel-service-micro
     environment:
-      MICRO_ADDRESS: ":50051"
+      DB_HOST: "mongodb://datastore:27017"
+    depends_on:
+      - datastore
+
+  datastore:
+    image: mongo
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.177.57.0/24

@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	defaultHost = "datastore:27017"
+	defaultHost = "mongodb://datastore:27017"
 )
 
 func main() {
@@ -34,7 +34,7 @@ func main() {
 	defer client.Disconnect(context.TODO())
 
 	consignmentCollection := client.Database("shippy").Collection("consignments")
-	repository := &MongoRepository{consignmentCollection}
+	repository := &ConsignmentsRepository{consignmentCollection}
 	vesselClient := vesselProto.NewVesselServiceClient("shippy.service.vessel", srv.Client())
 	h := &handler{repository, vesselClient}
 

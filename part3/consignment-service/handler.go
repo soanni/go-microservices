@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"fmt"
 
 	pb "github.com/soanni/go-microservices/part3/consignment-service/proto/consignment"
 	vesselProto "github.com/soanni/go-microservices/part3/vessel-service/proto/vessel"
@@ -13,7 +14,8 @@ type handler struct {
 	vesselClient vesselProto.VesselServiceClient
 }
 
-func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
+func (s *handler) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
+	fmt.Println("*** Inside handler.CreateConsignment ***")
 	vesselResponse, err := s.vesselClient.FindAvailable(context.Background(), &vesselProto.Specification{
 		MaxWeight: req.Weight,
 		Capacity: int32(len(req.Containers)),
@@ -22,7 +24,9 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	if err != nil {
 		return err
 	}
-	log.Printf("Found vessel: %s \n", vesselResponse.Vessel.Name)
+	log.Printf("Found veSSSel: %s \n", vesselResponse.Vessel.Name)
+	log.Printf("Found vessel id: %s \n", vesselResponse.Vessel.Id)
+
 	req.VesselId = vesselResponse.Vessel.Id
 
 	if err = s.repo.Create(req); err != nil {
@@ -35,7 +39,8 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	return nil
 }
 
-func (s *service) GetConsignments(ctx context.Context, req *pb.GetRequest, res *pb.Response) error {
+func (s *handler) GetConsignments(ctx context.Context, req *pb.GetRequest, res *pb.Response) error {
+	fmt.Println("*** Inside handler.GetConsignments ***")
 	consignments, err := s.repo.GetAll()
 	if err != nil {
 		return err

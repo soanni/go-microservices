@@ -2,6 +2,7 @@ build:
 	protoc -I. --go_out=plugins=micro:. \
 		proto/consignment/consignment.proto
 	GOOS=linux GOARCH=amd64 go build -o consignment-service -a -installsuffix cgo main.go repository.go handler.go datastore.go
+	docker rmi consignment-service-micro
 	docker build --no-cache -t consignment-service-micro .
 
 run:

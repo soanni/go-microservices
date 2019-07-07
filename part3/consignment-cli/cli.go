@@ -7,7 +7,7 @@ import (
 	"os"
 	"context"
 
-	pb "github.com/soanni/go-microservices/part2/consignment-service/proto/consignment"
+	pb "github.com/soanni/go-microservices/part3/consignment-service/proto/consignment"
 	micro "github.com/micro/go-micro"
 )
 
