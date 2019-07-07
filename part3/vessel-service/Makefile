@@ -7,4 +7,4 @@ build:
 
 run:
 	# docker rm -f vessel-service-micro
-	docker run --name="vessel-service-micro" -d -e MICRO_SERVER_ADDRESS=:50051 -p 50052:50051 vessel-service-micro
+	docker run --name="vessel-service-micro" -d -e MICRO_SERVER_ADDRESS=:50051 -p 50051:50051 vessel-service-micro

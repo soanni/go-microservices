@@ -7,4 +7,4 @@ build:
 
 run:
 	docker ps -aq -f name=consignment-service-micro | xargs docker rm -f
-	docker run --name="consignment-service-micro" -d -e MICRO_SERVER_ADDRESS=:50051 -p 50051:50051 consignment-service-micro
+	docker run --name="consignment-service-micro" -d -e MICRO_SERVER_ADDRESS=:50051 -p 50052:50051 consignment-service-micro
