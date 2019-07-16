@@ -1,8 +1,8 @@
 build:
 	protoc -I. --go_out=plugins=micro:. \
 		proto/user/user.proto
-	GOOS=linux GOARCH=amd64 go build -o user-service -a -installsuffix cgo main.go repository.go handler.go datastore.go
-	docker rmi user-service-micro
+	GOOS=linux GOARCH=amd64 go build -o user-service -a -installsuffix cgo main.go repository.go handler.go
+	# docker rmi user-service-micro
 	docker build --no-cache -t user-service-micro .
 
 run:

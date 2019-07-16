@@ -18,7 +18,7 @@ type UserRepository struct {
 
 func (repo *UserRepository) GetAll() ([]*pb.User, error) {
 	var users []*pb.User
-	if err := repo.db.Find(&users); err != nil {
+	if err := repo.db.Find(&users).Error; err != nil {
 		return nil, err
 	}
 	return users, nil
@@ -33,8 +33,16 @@ func (repo *UserRepository) Get(id string) (*pb.User, error) {
 	return user, nil
 }
 
+// func (repo *UserRepository) GetByEmailAndPassword(user *pb.User) (*pb.User, error) {
+// 	if err := repo.db.First(&user).Error; err != nil {
+// 		return nil, err
+// 	}
+// 	return user, nil
+// }
+
 func (repo *UserRepository) Create(user *pb.User) error {
 	if err := repo.db.Create(user).Error; err != nil {
 		return err
 	}
+	return nil
 }

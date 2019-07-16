@@ -29,6 +29,29 @@ services:
   datastore:
     image: mongo
 
+  user-cli:
+    build: ./user-cli
+    image: user-cli-micro
+    depends_on:
+      - pgsql
+      - user-service
+
+  user-service:
+    build: ./user-service
+    image: user-service-micro
+    depends_on:
+      - pgsql
+
+  pgsql:
+    build: ./shippy-postgres
+    image: shippy-postgres
+    ports:
+      - 5432:5432
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - /home/soanni/go/src/github.com/soanni/go-microservices/part3/pgsql-data:/var/lib/postgresql/data/pgdata
+
 networks:
   default:
     driver: bridge

@@ -20,7 +20,7 @@ func (h *handler) Get(ctx context.Context, req *pb.User, res *pb.Response) error
 }
 
 func (h *handler) GetAll(ctx context.Context, req *pb.Request, res *pb.Response) error {
-	user, err := h.repo.GetAll()
+	users, err := h.repo.GetAll()
 	if err != nil {
 		return err
 	}
@@ -36,8 +36,10 @@ func (h *handler) Create(ctx context.Context, req *pb.User, res *pb.Response) er
 	return nil
 }
 
-// func (h *handler) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
-// }
+func (h *handler) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
+	return nil
+}
 
-// func (h *handler) ValidateToken(ctx context.Context, req *pb.Token, res *pb.Token) error {
-// }
+func (h *handler) ValidateToken(ctx context.Context, req *pb.Token, res *pb.Token) error {
+	return nil
+}
